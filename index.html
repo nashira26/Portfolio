@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nashira Nasrudeen · Software engineer &amp; AI</title>
+    <meta name="description" content="Nashira Nasrudeen · Software engineer &amp; AI" />
+    <meta property="og:title" content="Nashira Nasrudeen · Software engineer &amp; AI" />
+    <meta property="og:description" content="Nashira Nasrudeen · Software engineer &amp; AI" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      (function () {
+        try {
+          var savedTheme = localStorage.getItem('nashira-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+          var savedAccent = localStorage.getItem('nashira-accent') || 'teal';
+          document.documentElement.setAttribute('data-accent', savedAccent);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

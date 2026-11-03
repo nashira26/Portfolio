@@ -1,0 +1,336 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --breakpoint-desk: 1020px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+:root {
+  --bg: #F8F4E6;
+  --bg-alt: #F1EAD5;
+  --border: #E5DCBD;
+  --text: #28282E;
+  --text-muted: #5A5A61;
+  --accent: #1F8A82;
+  --accent-fg: #FFFFFF;
+  --accent-soft: rgba(31, 138, 130, 0.12);
+}
+
+:root[data-accent="teal"] {
+  --accent: #1F8A82;
+  --accent-soft: rgba(31, 138, 130, 0.12);
+}
+:root[data-accent="coral"] {
+  --accent: #C2533A;
+  --accent-soft: rgba(194, 83, 58, 0.12);
+}
+:root[data-accent="kelp"] {
+  --accent: #4E7A3A;
+  --accent-soft: rgba(78, 122, 58, 0.12);
+}
+:root[data-accent="blue"] {
+  --accent: #2A67A5;
+  --accent-soft: rgba(42, 103, 165, 0.12);
+}
+:root[data-accent="goldfish"] {
+  --accent: #B26A34;
+  --accent-soft: rgba(178, 106, 52, 0.12);
+}
+
+.dark {
+  --bg: #202025;
+  --bg-alt: #16161A;
+  --border: #323239;
+  --text: #D4D4D8;
+  --text-muted: #A1A1A8;
+  --accent: #7FD8CF;
+  --accent-fg: #16161A;
+  --accent-soft: rgba(127, 216, 207, 0.14);
+}
+
+.dark[data-accent="teal"] {
+  --accent: #7FD8CF;
+  --accent-soft: rgba(127, 216, 207, 0.14);
+}
+.dark[data-accent="coral"] {
+  --accent: #F49C80;
+  --accent-soft: rgba(244, 156, 128, 0.14);
+}
+.dark[data-accent="kelp"] {
+  --accent: #A6D48C;
+  --accent-soft: rgba(166, 212, 140, 0.14);
+}
+.dark[data-accent="blue"] {
+  --accent: #6DB3F5;
+  --accent-soft: rgba(109, 179, 245, 0.14);
+}
+.dark[data-accent="goldfish"] {
+  --accent: #FEDE91;
+  --accent-soft: rgba(254, 222, 145, 0.14);
+}
+
+html {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  background-color: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle pulsing availability dot (static when prefers-reduced-motion) */
+@keyframes availability-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+}
+
+.availability-dot {
+  animation: availability-pulse 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .availability-dot {
+    animation: none;
+  }
+}
+
+/* Aquarium strip fish & bubble animations (transform & opacity only) */
+.fish-tank-container {
+  container-type: inline-size;
+}
+
+@keyframes swim-move-1 {
+  0% {
+    transform: translateX(14px);
+  }
+  49% {
+    transform: translateX(calc(100cqw - 40px));
+  }
+  50% {
+    transform: translateX(calc(100cqw - 40px));
+  }
+  99% {
+    transform: translateX(14px);
+  }
+  100% {
+    transform: translateX(14px);
+  }
+}
+
+@keyframes swim-flip-1 {
+  0%, 49% {
+    transform: scaleX(1);
+  }
+  50%, 99% {
+    transform: scaleX(-1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes swim-move-2 {
+  0% {
+    transform: translateX(calc(100cqw - 54px));
+  }
+  49% {
+    transform: translateX(28px);
+  }
+  50% {
+    transform: translateX(28px);
+  }
+  99% {
+    transform: translateX(calc(100cqw - 54px));
+  }
+  100% {
+    transform: translateX(calc(100cqw - 54px));
+  }
+}
+
+@keyframes swim-flip-2 {
+  0%, 49% {
+    transform: scaleX(-1);
+  }
+  50%, 99% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(-1);
+  }
+}
+
+@keyframes swim-move-3 {
+  0% {
+    transform: translateX(35cqw);
+  }
+  34% {
+    transform: translateX(calc(100cqw - 44px));
+  }
+  36% {
+    transform: translateX(calc(100cqw - 44px));
+  }
+  84% {
+    transform: translateX(20px);
+  }
+  86% {
+    transform: translateX(20px);
+  }
+  100% {
+    transform: translateX(35cqw);
+  }
+}
+
+@keyframes swim-flip-3 {
+  0%, 34.9% {
+    transform: scaleX(1);
+  }
+  35%, 84.9% {
+    transform: scaleX(-1);
+  }
+  85%, 100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  80% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-64px);
+    opacity: 0;
+  }
+}
+
+.tank-fish-1 {
+  top: 15px;
+  left: 0;
+  animation: swim-move-1 26s ease-in-out infinite;
+}
+
+.fish-sprite-1 {
+  animation: swim-flip-1 26s steps(1, end) infinite;
+}
+
+.tank-fish-2 {
+  top: 39px;
+  left: 0;
+  animation: swim-move-2 32s ease-in-out infinite;
+}
+
+.fish-sprite-2 {
+  animation: swim-flip-2 32s steps(1, end) infinite;
+}
+
+.tank-fish-3 {
+  top: 57px;
+  left: 0;
+  animation: swim-move-3 29s ease-in-out infinite;
+}
+
+.fish-sprite-3 {
+  animation: swim-flip-3 29s steps(1, end) infinite;
+}
+
+.tank-bubble-1 {
+  bottom: 10px;
+  left: 18%;
+  animation: bubble-rise 5.5s linear infinite;
+}
+
+.tank-bubble-2 {
+  bottom: 8px;
+  left: 42%;
+  animation: bubble-rise 6.8s linear 1.8s infinite;
+}
+
+.tank-bubble-3 {
+  bottom: 12px;
+  left: 67%;
+  animation: bubble-rise 6.1s linear 3.2s infinite;
+}
+
+.tank-bubble-4 {
+  bottom: 9px;
+  left: 84%;
+  animation: bubble-rise 7.2s linear 0.9s infinite;
+}
+
+.tank-paused .tank-fish-1,
+.tank-paused .tank-fish-2,
+.tank-paused .tank-fish-3,
+.tank-paused .fish-sprite-1,
+.tank-paused .fish-sprite-2,
+.tank-paused .fish-sprite-3,
+.tank-paused .tank-bubble-1,
+.tank-paused .tank-bubble-2,
+.tank-paused .tank-bubble-3,
+.tank-paused .tank-bubble-4 {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tank-fish-1 {
+    animation: none;
+    transform: translateX(14cqw);
+  }
+  .fish-sprite-1 {
+    animation: none;
+    transform: scaleX(1);
+  }
+  .tank-fish-2 {
+    animation: none;
+    transform: translateX(48cqw);
+  }
+  .fish-sprite-2 {
+    animation: none;
+    transform: scaleX(-1);
+  }
+  .tank-fish-3 {
+    animation: none;
+    transform: translateX(76cqw);
+  }
+  .fish-sprite-3 {
+    animation: none;
+    transform: scaleX(1);
+  }
+  .tank-bubble-1,
+  .tank-bubble-2,
+  .tank-bubble-3,
+  .tank-bubble-4 {
+    animation: none;
+    opacity: 0.55;
+    transform: translateY(-28px);
+  }
+}
+
