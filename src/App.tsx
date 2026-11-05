@@ -41,6 +41,7 @@ export default function App() {
   const [accent, setAccent] = useState<AccentId>(getInitialAccent);
   const [activeSection, setActiveSection] = useState<string>(SITE_CONTENT.nav[0].id);
   const [openProjectId, setOpenProjectId] = useState<string | null>(null);
+  const [isJourneyOpen, setIsJourneyOpen] = useState<boolean>(false);
 
   // Styled browser console greeting on initial page load
   useEffect(() => {
@@ -252,16 +253,18 @@ export default function App() {
             shelf={shelves.projects}
             openItemId={openProjectId}
             onOpenItemChange={setOpenProjectId}
+            hideItemIcons
           />
 
           {/* 2. Experience shelf */}
           <ShelfCardList
             shelf={shelves.experience}
             onInternalNavigate={handleInternalNavigate}
+            hideItemIcons
           />
 
           {/* 3. Education shelf */}
-          <ShelfCardList shelf={shelves.education} />
+          <ShelfCardList shelf={shelves.education} hideItemIcons />
 
           {/* 4. Toolbox shelf (always visible) */}
           <section
@@ -311,20 +314,59 @@ export default function App() {
             id={shelves.journey.id}
             className="scroll-mt-20 desk:scroll-mt-10 border-t border-[var(--border)] py-9"
           >
-            <div className="flex items-center gap-3 mb-5">
-              <PixelIcon
-                name={shelves.journey.icon}
-                className="w-[28px] h-[28px] shrink-0"
-              />
-              <h2 className="font-display text-[1.45rem] font-semibold tracking-tight text-[var(--text)]">
-                {shelves.journey.title}
-              </h2>
-            </div>
+            <h2>
+              <button
+                type="button"
+                id="journey-toggle"
+                aria-expanded={isJourneyOpen}
+                aria-controls="journey-panel"
+                onClick={() => setIsJourneyOpen((open) => !open)}
+                className="group flex items-center gap-3 text-left cursor-pointer rounded-[8px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]"
+              >
+                <PixelIcon
+                  name={shelves.journey.icon}
+                  className="w-[28px] h-[28px] shrink-0"
+                />
+                <span className="font-display text-[1.45rem] font-semibold tracking-tight text-[var(--text)] group-hover:text-[var(--accent)] transition-colors duration-150">
+                  {shelves.journey.title}
+                </span>
+                <svg
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                  className={`w-4 h-4 shrink-0 transition-transform duration-200 motion-reduce:transition-none ${
+                    isJourneyOpen
+                      ? 'rotate-180 text-[var(--accent)]'
+                      : 'text-[var(--text-muted)] group-hover:text-[var(--accent)]'
+                  }`}
+                >
+                  <path
+                    d="M4 6L8 10L12 6"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </h2>
 
-            <div className="space-y-3.5 max-w-[65ch] text-[var(--text)]">
-              {shelves.journey.paragraphs.map((paragraph, idx) => (
-                <p key={idx}>{paragraph}</p>
-              ))}
+            <div
+              id="journey-panel"
+              role="region"
+              aria-labelledby="journey-toggle"
+              aria-hidden={!isJourneyOpen}
+              className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out motion-reduce:transition-none ${
+                isJourneyOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+              }`}
+            >
+              <div className="overflow-hidden">
+                <div className="pt-5 space-y-3.5 max-w-[65ch] text-[var(--text)]">
+                  {shelves.journey.paragraphs.map((paragraph, idx) => (
+                    <p key={idx}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
             </div>
           </section>
 
