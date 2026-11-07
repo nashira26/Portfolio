@@ -30,7 +30,8 @@ export type PixelIconId =
 	| "cinema"
 	| "map-pin"
 	| "instagram"
-	| "sprout";
+	| "sprout"
+	| "child-care";
 
 export interface AccentOption {
 	id: AccentId;
@@ -101,12 +102,16 @@ export interface ShelfCardItem {
 	accentBadge?: string;
 	rightLabel?: string;
 	description?: string;
+	/** Small muted monospace note shown under the description. */
+	note?: string;
 	keyResult?: string;
 	labeledTags?: LabeledTagGroup;
 	tags?: string[];
 	publication?: PublicationInfo;
 	href?: string;
 	linkLabel?: string;
+	demoHref?: string;
+	demoLabel?: string;
 	internalLink?: InternalActionLink;
 	statusNote?: string;
 	chart?: AurocChartData;
@@ -290,6 +295,30 @@ export const SITE_CONTENT = {
 			description: "Research and things I've built.",
 			columns: 1,
 			items: [
+				{
+					id: "careq",
+					title: "CareQ",
+					icon: "child-care",
+					rightLabel: "AI agent · hackathon",
+					accentBadge: "WAI Hackathon 2026",
+					description:
+						"One portal for Ontario's fragmented child-care waitlists. Parents find licensed centres on a Leaflet/OpenStreetMap map built from Ontario's open data, apply once, and track every application and offer from a single dashboard. Centres get their own portal to review applications and update statuses. A Gemini-powered assistant reads each centre's published policies and forms, flags missing information, and drafts applications and follow-ups for the parent to approve. A full-stack TypeScript app (React, Express, MongoDB), built with Team Coalesce for the Women in AI Canada Hackathon 2026.",
+					keyResult:
+						"grounded in centre documents · human approval before anything is sent",
+					tags: [
+						"TypeScript",
+						"React",
+						"Express",
+						"MongoDB",
+						"Gemini",
+						"Leaflet",
+						"Tailwind CSS",
+					],
+					href: "https://github.com/nashira26/CareQ",
+					linkLabel: "View on GitHub ↗",
+					demoHref: "https://careq-gfe9.onrender.com/",
+					demoLabel: "Try the live demo ↗",
+				},
 				{
 					id: "llm-judge-uncertainty",
 					title: "LLM-as-a-Judge Uncertainty",

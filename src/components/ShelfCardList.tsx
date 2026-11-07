@@ -222,6 +222,12 @@ export const ShelfCardList: React.FC<ShelfCardListProps> = ({
 											</p>
 										)}
 
+										{item.note && (
+											<p className="font-mono text-[12px] leading-[1.5] text-[var(--text-muted)] max-w-[64ch]">
+												{item.note}
+											</p>
+										)}
+
 										{item.keyResult && (
 											<p className="font-mono text-[13px] font-medium text-[var(--accent)]">
 												{item.keyResult}
@@ -300,6 +306,17 @@ export const ShelfCardList: React.FC<ShelfCardListProps> = ({
 															tabIndex={isOpen ? 0 : -1}
 															className="inline-flex items-center font-mono text-[13px] font-medium text-[var(--accent)] hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] rounded-[4px] whitespace-nowrap shrink-0">
 															{item.linkLabel ?? SITE_CONTENT.ui.githubLinkText}
+														</a>
+													)}
+
+													{item.demoHref && (
+														<a
+															href={item.demoHref}
+															target="_blank"
+															rel="noopener noreferrer"
+															tabIndex={isOpen ? 0 : -1}
+															className="inline-flex items-center font-mono text-[13px] font-medium text-[var(--accent)] hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] rounded-[4px] whitespace-nowrap shrink-0">
+															{item.demoLabel ?? item.demoHref}
 														</a>
 													)}
 
