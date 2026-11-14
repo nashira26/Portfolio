@@ -769,6 +769,44 @@ export const PixelIcon: React.FC<PixelIconProps> = ({ name, className = 'w-4 h-4
             <rect x="7" y="13" width="2" height="1" fill={accent} />
           </>
         );
+
+      case 'trophy':
+        // Pixel trophy cup with handles, star and stepped base (Achievements)
+        return (
+          <>
+            {/* Cup rim & sides */}
+            <rect x="3" y="1" width="10" height="1" fill={outline} />
+            <rect x="3" y="2" width="1" height="5" fill={outline} />
+            <rect x="12" y="2" width="1" height="5" fill={outline} />
+            <rect x="4" y="7" width="1" height="1" fill={outline} />
+            <rect x="11" y="7" width="1" height="1" fill={outline} />
+            <rect x="5" y="8" width="2" height="1" fill={outline} />
+            <rect x="9" y="8" width="2" height="1" fill={outline} />
+            {/* Cup fill */}
+            <rect x="4" y="2" width="8" height="5" fill={accent} />
+            <rect x="5" y="7" width="6" height="1" fill={accent} />
+            <rect x="5" y="2" width="1" height="3" fill={bg} opacity="0.6" />
+            {/* Star */}
+            <rect x="8" y="3" width="1" height="3" fill={surface} />
+            <rect x="7" y="4" width="3" height="1" fill={surface} />
+            {/* Handles */}
+            <rect x="1" y="2" width="2" height="1" fill={outline} />
+            <rect x="1" y="3" width="1" height="2" fill={outline} />
+            <rect x="2" y="5" width="1" height="1" fill={outline} />
+            <rect x="13" y="2" width="2" height="1" fill={outline} />
+            <rect x="14" y="3" width="1" height="2" fill={outline} />
+            <rect x="13" y="5" width="1" height="1" fill={outline} />
+            {/* Stem */}
+            <rect x="7" y="8" width="2" height="3" fill={outline} />
+            {/* Base */}
+            <rect x="5" y="11" width="6" height="1" fill={outline} />
+            <rect x="5" y="12" width="6" height="2" fill={surface} />
+            <rect x="4" y="12" width="1" height="2" fill={outline} />
+            <rect x="11" y="12" width="1" height="2" fill={outline} />
+            <rect x="4" y="14" width="8" height="1" fill={outline} />
+            <rect x="7" y="12" width="2" height="1" fill={accent} />
+          </>
+        );
     }
   };
 

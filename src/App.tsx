@@ -263,10 +263,16 @@ export default function App() {
             hideItemIcons
           />
 
-          {/* 3. Education shelf */}
+          {/* 3. Achievements shelf */}
+          <ShelfCardList
+            shelf={shelves.achievements}
+            onInternalNavigate={handleInternalNavigate}
+          />
+
+          {/* 4. Education shelf */}
           <ShelfCardList shelf={shelves.education} hideItemIcons />
 
-          {/* 4. Toolbox shelf (always visible) */}
+          {/* 5. Toolbox shelf (always visible) */}
           <section
             id={shelves.toolbox.id}
             className="scroll-mt-20 desk:scroll-mt-10 border-t border-[var(--border)] py-9"
@@ -309,7 +315,7 @@ export default function App() {
             </div>
           </section>
 
-          {/* 5. Journey section (between Toolbox and Off the clock) */}
+          {/* 6. Journey section (between Toolbox and Off the clock) */}
           <section
             id={shelves.journey.id}
             className="scroll-mt-20 desk:scroll-mt-10 border-t border-[var(--border)] py-9"
@@ -370,7 +376,7 @@ export default function App() {
             </div>
           </section>
 
-          {/* 6. Off the clock shelf + pixel fish tank strip */}
+          {/* 7. Off the clock shelf + pixel fish tank strip */}
           <ShelfCardList shelf={shelves.offTheClock}>
             <FishTankStrip />
           </ShelfCardList>

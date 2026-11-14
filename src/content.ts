@@ -31,7 +31,8 @@ export type PixelIconId =
 	| "map-pin"
 	| "instagram"
 	| "sprout"
-	| "child-care";
+	| "child-care"
+	| "trophy";
 
 export interface AccentOption {
 	id: AccentId;
@@ -174,6 +175,7 @@ export function formatYearMonth(ym: string): string {
 }
 
 export function formatDateRange(start: string, end: string): string {
+	if (start === end) return formatYearMonth(start);
 	return `${formatYearMonth(start)} – ${formatYearMonth(end)}`;
 }
 
@@ -228,6 +230,7 @@ export const SITE_CONTENT = {
 	nav: [
 		{ id: "projects", label: "Projects", icon: "shelf-swe" },
 		{ id: "experience", label: "Experience", icon: "shelf-experience" },
+		{ id: "achievements", label: "Achievements", icon: "trophy" },
 		{ id: "education", label: "Education", icon: "shelf-background" },
 		{ id: "toolbox", label: "Toolbox", icon: "shelf-toolbox" },
 		{ id: "journey", label: "Journey", icon: "sprout" },
@@ -300,7 +303,7 @@ export const SITE_CONTENT = {
 					title: "CareQ",
 					icon: "child-care",
 					rightLabel: "AI agent · hackathon",
-					accentBadge: "WAI Hackathon 2026",
+					accentBadge: "🥉 3rd place · WAI Hackathon 2026",
 					description:
 						"One portal for Ontario's fragmented child-care waitlists. Parents find licensed centres on a Leaflet/OpenStreetMap map built from Ontario's open data, apply once, and track every application and offer from a single dashboard. Centres get their own portal to review applications and update statuses. A Gemini-powered assistant reads each centre's published policies and forms, flags missing information, and drafts applications and follow-ups for the parent to approve. A full-stack TypeScript app (React, Express, MongoDB), built with Team Coalesce for the Women in AI Canada Hackathon 2026.",
 					keyResult:
@@ -455,6 +458,31 @@ export const SITE_CONTENT = {
 						"Next.js",
 						"Auth0",
 					],
+				},
+			],
+		} satisfies ExpandableShelf,
+
+		achievements: {
+			id: "achievements",
+			title: "Achievements",
+			icon: "trophy",
+			description: "Things I'm proud of.",
+			columns: 1,
+			items: [
+				{
+					id: "wai-hackathon-2026",
+					title: "3rd Place, Women in AI Canada Hackathon 2026",
+					icon: "trophy",
+					start: "2026-11",
+					end: "2026-11",
+					accentBadge: "🥉 3rd place",
+					description:
+						"Our team, Coalesce, placed third with CareQ, a single application portal for Ontario's child-care waitlists, with a Gemini assistant that reads each centre's policies and drafts applications for parents to approve. I led the implementation and built the demo.",
+					internalLink: {
+						label: "see CareQ in Projects",
+						targetShelfId: "projects",
+						targetItemId: "careq",
+					},
 				},
 			],
 		} satisfies ExpandableShelf,
