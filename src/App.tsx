@@ -4,6 +4,7 @@ import { Sidebar } from './components/Sidebar';
 import { PixelIcon } from './components/PixelIcons';
 import { ShelfCardList } from './components/ShelfCardList';
 import { FishTankStrip } from './components/FishTankStrip';
+import { AchievementList } from './components/AchievementList';
 
 const THEME_STORAGE_KEY = 'nashira-theme';
 const ACCENT_STORAGE_KEY = 'nashira-accent';
@@ -264,7 +265,7 @@ export default function App() {
           />
 
           {/* 3. Achievements shelf */}
-          <ShelfCardList
+          <AchievementList
             shelf={shelves.achievements}
             onInternalNavigate={handleInternalNavigate}
           />
@@ -297,7 +298,7 @@ export default function App() {
                   key={group.label}
                   className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4"
                 >
-                  <span className="font-mono text-[13px] text-[var(--text-muted)] sm:w-28 shrink-0">
+                  <span className="font-mono text-[13px] text-[var(--text-muted)] sm:w-32 sm:whitespace-nowrap shrink-0">
                     {group.label}
                   </span>
                   <div className="flex flex-wrap gap-1.5">

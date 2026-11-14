@@ -131,6 +131,32 @@ export interface ExpandableShelf {
 	};
 }
 
+export interface AchievementItem {
+	id: string;
+	title: string;
+	issuer: string;
+	icon: PixelIconId;
+	/** Optional organisation logo in /public, shown instead of the pixel icon. */
+	logo?: string;
+	/** YYYY-MM; a single month is shown when start equals end. */
+	start: string;
+	end: string;
+	/** When set, the title links here (new tab). */
+	href?: string;
+	accentBadge?: string;
+	/** Extra small links, e.g. separate certificate stages. */
+	links?: { label: string; href: string }[];
+	internalLink?: InternalActionLink;
+}
+
+export interface AchievementsShelf {
+	id: string;
+	title: string;
+	icon: PixelIconId;
+	description?: string;
+	items: AchievementItem[];
+}
+
 export interface ToolboxGroup {
 	label: string;
 	items: string[];
@@ -305,17 +331,17 @@ export const SITE_CONTENT = {
 					rightLabel: "AI agent · hackathon",
 					accentBadge: "🥉 3rd place · WAI Hackathon 2026",
 					description:
-						"One portal for Ontario's fragmented child-care waitlists. Parents find licensed centres on a Leaflet/OpenStreetMap map built from Ontario's open data, apply once, and track every application and offer from a single dashboard. Centres get their own portal to review applications and update statuses. A Gemini-powered assistant reads each centre's published policies and forms, flags missing information, and drafts applications and follow-ups for the parent to approve. A full-stack TypeScript app (React, Express, MongoDB), built with Team Coalesce for the Women in AI Canada Hackathon 2026.",
+						"One portal for Ontario's fragmented child-care waitlists, built with Team Coalesce for the Women in AI Canada Hackathon 2026, where we placed 3rd. A full-stack app with separate parent and child-care-centre portals, session-based authentication and role-based data access across 1,102 licensed Ontario centres, with deterministic search ranking and end-to-end Playwright tests. A RAG pipeline over centre handbooks and the 283-page provincial licensing manual (PDF/HTML ingestion, heading-aware chunking, Gemini embeddings, MongoDB Atlas Vector Search with metadata filtering) grounds answers in cited sources. A Gemini tool-calling agent orchestrates document retrieval and application-data queries, with server-enforced data scoping and refusal of unsupported queries.",
 					keyResult:
-						"grounded in centre documents · human approval before anything is sent",
+						"citation quote verification · rule-based validation · fallback-model retries · rate limiting · personal-data minimisation",
 					tags: [
 						"TypeScript",
 						"React",
 						"Express",
-						"MongoDB",
+						"MongoDB Atlas Vector Search",
 						"Gemini",
-						"Leaflet",
-						"Tailwind CSS",
+						"RAG",
+						"Playwright",
 					],
 					href: "https://github.com/nashira26/CareQ",
 					linkLabel: "View on GitHub ↗",
@@ -446,7 +472,7 @@ export const SITE_CONTENT = {
 					start: "2023-08",
 					end: "2025-09",
 					description:
-						"Built a multi-tenant maintenance-management SaaS serving 3 enterprise clients. I wrote backend microservices and REST APIs in Node.js, Express, TypeScript and MongoDB across 7+ services (work orders, assets, customers, sites, analytics and the API gateway), and delivered a contract-management module end to end in React/Next.js, from clause and template versioning to approval workflows, pricing, reporting and email notifications. I also set up role-based access with Auth0 and JWT, made the APIs 30% faster through query and schema refactoring, load-tested with Artillery, led the migration of core services to NestJS, and mentored 4+ interns.",
+						"Built a multi-tenant maintenance-management SaaS serving 3 enterprise clients. I wrote backend microservices and REST APIs in Node.js, Express, TypeScript and MongoDB across 7+ services (work orders, assets, customers, sites, analytics and the API gateway), built React/Next.js frontends from Figma designs, and delivered a contract-management module end to end, from clause and template versioning to staged review-and-approval workflows, pricing, reporting and email notifications. I also set up role-based access control with Auth0 and JWT (page-level restrictions and per-role data scoping), made the APIs 30% faster through query and schema refactoring, standardised error handling across services, and load-tested with Artillery. I contributed to migrating the core frontend to Next.js, and mentored 4+ interns and the web team through JavaScript, React/Redux and backend training sessions.",
 					href: "https://www.fieldsmart.io/",
 					linkLabel: "Fieldsmart, what I worked on ↗",
 					tags: [
@@ -464,29 +490,91 @@ export const SITE_CONTENT = {
 
 		achievements: {
 			id: "achievements",
-			title: "Achievements",
+			title: "Achievements & certifications",
 			icon: "trophy",
 			description: "Things I'm proud of.",
-			columns: 1,
 			items: [
 				{
 					id: "wai-hackathon-2026",
-					title: "3rd Place, Women in AI Canada Hackathon 2026",
+					title: "3rd Place, WAI Canada Hackathon 2026",
+					issuer: "Women in AI",
 					icon: "trophy",
 					logo: "/logos/wai.png",
 					start: "2026-11",
 					end: "2026-11",
-					accentBadge: "🥉 3rd place",
-					description:
-						"Our team, Coalesce, placed third with CareQ, a single application portal for Ontario's child-care waitlists, with a Gemini assistant that reads each centre's policies and drafts applications for parents to approve. I led the implementation and built the demo.",
+					href: "https://www.womeninai.co/wai-hackathon-canada",
+					accentBadge: "🥉",
 					internalLink: {
 						label: "see CareQ in Projects",
 						targetShelfId: "projects",
 						targetItemId: "careq",
 					},
 				},
+				{
+					id: "gcp-data-engineering",
+					title: "Introduction to Data Engineering on Google Cloud",
+					issuer: "Google Cloud",
+					icon: "degree-scroll",
+					start: "2026-02",
+					end: "2026-02",
+					href: "https://drive.google.com/file/d/1VKw5HYxkyPbV4gzCgKJbRvljbmPSBRU_/view?usp=sharing",
+				},
+				{
+					id: "sliit-ai-ml-engineer",
+					title: "AI/ML Engineer (Stage 1 & Stage 2)",
+					issuer: "SLIIT",
+					icon: "degree-scroll",
+					start: "2024-09",
+					end: "2025-01",
+					links: [
+						{
+							label: "Stage 1",
+							href: "https://code.sliit.org/certificates/ztqvrf2mgk",
+						},
+						{
+							label: "Stage 2",
+							href: "https://code.sliit.org/certificates/7ht2tbyhoo",
+						},
+					],
+				},
+				{
+					id: "ml-specialization",
+					title: "Machine Learning Specialization",
+					issuer: "DeepLearning.AI (Coursera)",
+					icon: "degree-scroll",
+					start: "2024-05",
+					end: "2024-05",
+					href: "https://www.coursera.org/account/accomplishments/specialization/JVR8LEPJREUH",
+				},
+				{
+					id: "agile-scrum",
+					title: "Agile and Scrum Fundamentals",
+					issuer: "IBM via edX",
+					icon: "degree-scroll",
+					start: "2024-01",
+					end: "2024-01",
+					href: "https://courses.edx.org/certificates/70ead67c5efc43608284fce335249e8a",
+				},
+				{
+					id: "gssoc-2023",
+					title: "Open Source Contributor",
+					issuer: "GirlScript Summer of Code",
+					icon: "code-crate",
+					start: "2023-05",
+					end: "2023-08",
+					href: "https://gssoc.girlscript.org/",
+				},
+				{
+					id: "aws-cloud-practitioner",
+					title: "AWS Cloud Practitioner Essentials",
+					issuer: "edX",
+					icon: "degree-scroll",
+					start: "2023-07",
+					end: "2023-07",
+					href: "https://courses.edx.org/certificates/3cbd68a7e7bf43c78033200abb0e20d2",
+				},
 			],
-		} satisfies ExpandableShelf,
+		} satisfies AchievementsShelf,
 
 		education: {
 			id: "education",
@@ -565,10 +653,34 @@ export const SITE_CONTENT = {
 					items: [
 						"PyTorch",
 						"scikit-learn",
-						"Hugging Face",
 						"NumPy",
 						"pandas",
 						"NLP",
+						"LLM evaluation",
+						"uncertainty quantification",
+					],
+				},
+				{
+					label: "Trustworthy AI",
+					items: [
+						"conformal prediction",
+						"LLM-as-a-Judge evaluation",
+						"differential privacy (DP-SGD)",
+						"federated learning",
+						"adversarial robustness",
+					],
+				},
+				{
+					label: "Generative AI",
+					items: [
+						"RAG",
+						"embeddings",
+						"vector search (MongoDB Atlas)",
+						"LLM agents & function calling",
+						"prompt engineering",
+						"Gemini API",
+						"Vercel AI SDK",
+						"guardrails",
 					],
 				},
 				{
@@ -582,16 +694,30 @@ export const SITE_CONTENT = {
 						"Node.js",
 						"Express",
 						"NestJS",
+						"REST APIs",
 						"React",
 						"Next.js",
 						"Redux",
 						"MongoDB",
 						"PostgreSQL",
+						"Auth0",
+						"JWT",
+						"RBAC",
 					],
 				},
 				{
 					label: "Tools",
-					items: ["Git", "Docker", "Linux", "AWS", "GCP", "Playwright"],
+					items: [
+						"Git",
+						"Docker",
+						"Linux",
+						"AWS",
+						"GCP",
+						"Playwright",
+						"Artillery",
+						"Figma",
+						"Render",
+					],
 				},
 			] satisfies ToolboxGroup[],
 		},
