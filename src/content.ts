@@ -473,6 +473,7 @@ export const SITE_CONTENT = {
 					id: "wai-hackathon-2026",
 					title: "3rd Place, Women in AI Canada Hackathon 2026",
 					icon: "trophy",
+					logo: "/logos/wai.png",
 					start: "2026-11",
 					end: "2026-11",
 					accentBadge: "🥉 3rd place",
