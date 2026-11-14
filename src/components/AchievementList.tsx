@@ -14,7 +14,7 @@ interface AchievementListProps {
 const smallLinkClass =
 	"font-mono text-[12.5px] text-[var(--text-muted)] hover:text-[var(--accent)] hover:underline underline-offset-4 transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] rounded-[4px]";
 
-/** Simple, non-collapsible rows: icon, title (optionally linked), muted issuer, date on the right. */
+/** Simple, non-collapsible rows: title (optionally linked), muted issuer, date on the right. */
 export const AchievementList: React.FC<AchievementListProps> = ({
 	shelf,
 	onInternalNavigate,
@@ -55,22 +55,17 @@ export const AchievementList: React.FC<AchievementListProps> = ({
 					<li
 						key={item.id}
 						className="flex items-start gap-2.5 sm:gap-3 px-2.5 py-2 rounded-[8px]">
-						{/* Fixed-width icon slot keeps titles aligned whether a logo or pixel icon is shown */}
-						<span className="w-[34px] h-[34px] shrink-0 flex items-center justify-center">
-							{item.logo ? (
-								<img
-									src={item.logo}
-									alt=""
-									aria-hidden="true"
-									className="w-[34px] h-[34px] object-contain rounded-[5px]"
-									onError={(e) => {
-										e.currentTarget.style.visibility = "hidden";
-									}}
-								/>
-							) : (
-								<PixelIcon name={item.icon} className="w-[25px] h-[25px]" />
-							)}
-						</span>
+						{item.logo && (
+							<img
+								src={item.logo}
+								alt=""
+								aria-hidden="true"
+								className="w-[34px] h-[34px] shrink-0 object-contain rounded-[5px]"
+								onError={(e) => {
+									e.currentTarget.style.visibility = "hidden";
+								}}
+							/>
+						)}
 
 						<span className="flex-1 min-w-0 flex flex-col gap-0.5">
 							{item.href ? (

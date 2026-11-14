@@ -135,8 +135,7 @@ export interface AchievementItem {
 	id: string;
 	title: string;
 	issuer: string;
-	icon: PixelIconId;
-	/** Optional organisation logo in /public, shown instead of the pixel icon. */
+	/** Optional organisation logo in /public, shown before the title. */
 	logo?: string;
 	/** YYYY-MM; a single month is shown when start equals end. */
 	start: string;
@@ -498,7 +497,6 @@ export const SITE_CONTENT = {
 					id: "wai-hackathon-2026",
 					title: "3rd Place, WAI Canada Hackathon 2026",
 					issuer: "Women in AI",
-					icon: "trophy",
 					logo: "/logos/wai.png",
 					start: "2026-11",
 					end: "2026-11",
@@ -514,7 +512,6 @@ export const SITE_CONTENT = {
 					id: "gcp-data-engineering",
 					title: "Introduction to Data Engineering on Google Cloud",
 					issuer: "Google Cloud",
-					icon: "degree-scroll",
 					start: "2026-02",
 					end: "2026-02",
 					href: "https://drive.google.com/file/d/1VKw5HYxkyPbV4gzCgKJbRvljbmPSBRU_/view?usp=sharing",
@@ -523,7 +520,6 @@ export const SITE_CONTENT = {
 					id: "sliit-ai-ml-engineer",
 					title: "AI/ML Engineer (Stage 1 & Stage 2)",
 					issuer: "SLIIT",
-					icon: "degree-scroll",
 					start: "2024-09",
 					end: "2025-01",
 					links: [
@@ -541,7 +537,6 @@ export const SITE_CONTENT = {
 					id: "ml-specialization",
 					title: "Machine Learning Specialization",
 					issuer: "DeepLearning.AI (Coursera)",
-					icon: "degree-scroll",
 					start: "2024-05",
 					end: "2024-05",
 					href: "https://www.coursera.org/account/accomplishments/specialization/JVR8LEPJREUH",
@@ -550,7 +545,6 @@ export const SITE_CONTENT = {
 					id: "agile-scrum",
 					title: "Agile and Scrum Fundamentals",
 					issuer: "IBM via edX",
-					icon: "degree-scroll",
 					start: "2024-01",
 					end: "2024-01",
 					href: "https://courses.edx.org/certificates/70ead67c5efc43608284fce335249e8a",
@@ -559,7 +553,6 @@ export const SITE_CONTENT = {
 					id: "gssoc-2023",
 					title: "Open Source Contributor",
 					issuer: "GirlScript Summer of Code",
-					icon: "code-crate",
 					start: "2023-05",
 					end: "2023-08",
 					href: "https://gssoc.girlscript.org/",
@@ -568,7 +561,6 @@ export const SITE_CONTENT = {
 					id: "aws-cloud-practitioner",
 					title: "AWS Cloud Practitioner Essentials",
 					issuer: "edX",
-					icon: "degree-scroll",
 					start: "2023-07",
 					end: "2023-07",
 					href: "https://courses.edx.org/certificates/3cbd68a7e7bf43c78033200abb0e20d2",
