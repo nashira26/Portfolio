@@ -253,10 +253,10 @@ export const SITE_CONTENT = {
 	] satisfies AccentOption[],
 
 	nav: [
-		{ id: "projects", label: "Projects", icon: "shelf-swe" },
-		{ id: "experience", label: "Experience", icon: "shelf-experience" },
-		{ id: "achievements", label: "Achievements", icon: "trophy" },
 		{ id: "education", label: "Education", icon: "shelf-background" },
+		{ id: "experience", label: "Experience", icon: "shelf-experience" },
+		{ id: "projects", label: "Projects", icon: "shelf-swe" },
+		{ id: "achievements", label: "Achievements", icon: "trophy" },
 		{ id: "toolbox", label: "Toolbox", icon: "shelf-toolbox" },
 		{ id: "journey", label: "Journey", icon: "sprout" },
 		{ id: "off-the-clock", label: "Off the clock", icon: "shelf-offclock" },
