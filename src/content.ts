@@ -57,6 +57,7 @@ export interface ChartBar {
 	label: string;
 	value: number;
 	displayValue: string;
+	muted?: boolean;
 }
 
 export interface AurocChartData {
@@ -353,27 +354,36 @@ export const SITE_CONTENT = {
 					icon: "magnifying-glass",
 					rightLabel: "research",
 					description:
-						"LLMs are increasingly used to judge whether content is safe, but how do you know when the judge itself is wrong? For my MEng research at TMU's Trustworthy AI Lab, I built a Python evaluation framework comparing 14+ semantic, NLI, lexical and consistency-based uncertainty methods for toxicity detection across several models and safety datasets. I also evaluated Adaptive Conformal Semantic Entropy (ACSE), and dug into why consistency-based methods miss judges that are confidently wrong (single-cluster collapse and soft-assignment compression).",
-					keyResult: "NLI 0.817 / Lexical 0.895 AUROC on ToxicChat",
+						"LLMs are increasingly used to judge whether content is safe, but how do you know when the judge itself is wrong? For my MEng research at TMU's Trustworthy AI Lab, I built a Python framework that samples a judge 10 times per input and tests whether disagreement between the samples predicts its mistakes. I compared 14 uncertainty methods across six safety datasets and four judge models. Methods that compare explanations by entailment or word overlap work well on some datasets, but ACSE, an embedding-based method, stays near chance on all six, because the judge's explanations look almost identical to its encoder. Most errors also happen when all 10 samples agree, so consistency alone cannot catch them.",
+					note: "AUROC measures how well a score separates wrong verdicts from correct ones: 0.5 is a coin flip, 1.0 is perfect.",
+					keyResult:
+						"Best AUROC 0.896 on ToxicChat · ACSE 0.51–0.55 on all six datasets",
 					chart: {
-						title: "AUROC on ToxicChat",
+						title: "AUROC on ToxicChat (best method per family)",
 						ariaLabel:
-							"Horizontal bar chart titled AUROC on ToxicChat showing NLI 0.817 and Lexical 0.895 compared against a coin flip baseline at 0.5",
+							"Horizontal bar chart of AUROC on ToxicChat: lexical 0.895, NLI 0.817, ACSE 0.513, compared with a coin-flip baseline at 0.5",
 						baselineValue: 0.5,
 						baselineLabel: "coin flip",
 						bars: [
-							{ label: "NLI", value: 0.817, displayValue: "0.817" },
 							{ label: "Lexical", value: 0.895, displayValue: "0.895" },
+							{ label: "NLI", value: 0.817, displayValue: "0.817" },
+							{
+								label: "ACSE",
+								value: 0.513,
+								displayValue: "0.513",
+								muted: true,
+							},
 						],
 					},
 					tags: [
 						"Python",
 						"Hugging Face Transformers",
+						"Sentence-Transformers",
 						"scikit-learn",
 						"Uncertainty quantification",
 						"LLM evaluation",
 					],
-					statusNote: "paper in progress",
+					href: "https://github.com/nashira26/Judge-UQ",
 				},
 				{
 					id: "ai-web-form-agent",
