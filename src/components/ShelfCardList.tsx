@@ -107,6 +107,7 @@ export const ShelfCardList: React.FC<ShelfCardListProps> = ({
 					const hasFooterRow =
 						(item.tags && item.tags.length > 0) ||
 						Boolean(item.href) ||
+						Boolean(item.paperHref) ||
 						Boolean(item.internalLink) ||
 						Boolean(item.statusNote);
 
@@ -222,6 +223,30 @@ export const ShelfCardList: React.FC<ShelfCardListProps> = ({
 											</p>
 										)}
 
+										{item.media && (
+											<figure className="max-w-[64ch] pt-0.5">
+												<a
+													href={item.media.src}
+													target="_blank"
+													rel="noopener noreferrer"
+													tabIndex={isOpen ? 0 : -1}
+													className="block rounded-[8px] overflow-hidden border border-[var(--border)] bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]">
+													<img
+														src={item.media.src}
+														alt={item.media.alt}
+														loading="lazy"
+														decoding="async"
+														className="block w-full h-auto"
+													/>
+												</a>
+												{item.media.caption && (
+													<figcaption className="mt-1.5 font-mono text-[12px] text-[var(--text-muted)]">
+														{item.media.caption}
+													</figcaption>
+												)}
+											</figure>
+										)}
+
 										{item.note && (
 											<p className="font-mono text-[12px] leading-[1.5] text-[var(--text-muted)] max-w-[64ch]">
 												{item.note}
@@ -306,6 +331,17 @@ export const ShelfCardList: React.FC<ShelfCardListProps> = ({
 															tabIndex={isOpen ? 0 : -1}
 															className="inline-flex items-center font-mono text-[13px] font-medium text-[var(--accent)] hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] rounded-[4px] whitespace-nowrap shrink-0">
 															{item.linkLabel ?? SITE_CONTENT.ui.githubLinkText}
+														</a>
+													)}
+
+													{item.paperHref && (
+														<a
+															href={item.paperHref}
+															target="_blank"
+															rel="noopener noreferrer"
+															tabIndex={isOpen ? 0 : -1}
+															className="inline-flex items-center font-mono text-[13px] font-medium text-[var(--accent)] hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] rounded-[4px] whitespace-nowrap shrink-0">
+															{item.paperLabel ?? "Read the paper (PDF) ↗"}
 														</a>
 													)}
 

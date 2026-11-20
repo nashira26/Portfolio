@@ -114,9 +114,18 @@ export interface ShelfCardItem {
 	linkLabel?: string;
 	demoHref?: string;
 	demoLabel?: string;
+	/** Path to a paper/report PDF in /public, linked next to the GitHub link. */
+	paperHref?: string;
+	paperLabel?: string;
 	internalLink?: InternalActionLink;
 	statusNote?: string;
 	chart?: AurocChartData;
+	/** Screenshot, diagram or GIF in /public, shown under the description. Click opens it full size. */
+	media?: {
+		src: string;
+		alt: string;
+		caption?: string;
+	};
 }
 
 export interface ExpandableShelf {
@@ -347,6 +356,10 @@ export const SITE_CONTENT = {
 					linkLabel: "View on GitHub ↗",
 					demoHref: "https://careq-gfe9.onrender.com/",
 					demoLabel: "Try the live demo ↗",
+					media: {
+						src: "/assets/careq.png",
+						alt: "CareQ landing page: 'Child-care applications and waitlist updates, in one place', with parent and centre sign-up buttons and an Ask CareQ assistant button",
+					},
 				},
 				{
 					id: "llm-judge-uncertainty",
@@ -355,6 +368,11 @@ export const SITE_CONTENT = {
 					rightLabel: "research",
 					description:
 						"LLMs are increasingly used to judge whether content is safe, but how do you know when the judge itself is wrong? For my MEng research at TMU's Trustworthy AI Lab, I built a Python framework that samples a judge 10 times per input and tests whether disagreement between the samples predicts its mistakes. I compared 14 uncertainty methods across six safety datasets and four judge models. Methods that compare explanations by entailment or word overlap work well on some datasets, but ACSE, an embedding-based method, stays near chance on all six, because the judge's explanations look almost identical to its encoder. Most errors also happen when all 10 samples agree, so consistency alone cannot catch them.",
+					media: {
+						src: "/assets/judge.png",
+						alt: "Pipeline diagram: an input goes to a judge model sampled n times, each output has a verdict and an explanation. Verdicts are aggregated by majority vote; explanations go to an uncertainty estimator that produces an uncertainty score. Both are evaluated against ground truth by how well the score separates judge errors from correct verdicts (AUROC).",
+						caption: "How the framework works (click to enlarge)",
+					},
 					note: "AUROC measures how well a score separates wrong verdicts from correct ones: 0.5 is a coin flip, 1.0 is perfect.",
 					keyResult:
 						"Best AUROC 0.896 on ToxicChat · ACSE 0.51–0.55 on all six datasets",
@@ -392,6 +410,11 @@ export const SITE_CONTENT = {
 					rightLabel: "AI agent",
 					description:
 						"Most form-filling bots break when a page changes. This one looks at the page first. Gemini drives a real Playwright browser through tool-based actions in an observe-and-act loop, so it works from what's actually on screen rather than hardcoded selectors. It runs as an HTTP API with input validation, retry handling, scheduled runs and job-overlap protection, so it can run unattended.",
+					media: {
+						src: "/assets/webform.gif",
+						alt: "Screen recording of the agent filling in a medical information form in a browser, section by section",
+						caption: "The agent filling in a form on its own",
+					},
 					tags: ["TypeScript", "Gemini", "Vercel AI SDK", "Playwright"],
 					href: "https://github.com/nashira26/Web-form-agent",
 				},
@@ -406,6 +429,7 @@ export const SITE_CONTENT = {
 						"3-class accuracy 50.95% → 54.70%, macro-F1 37.12% → 40.25%",
 					tags: ["PyTorch", "BART", "Hugging Face"],
 					href: "https://github.com/nashira26/Emotion-Conditioned-Conversational-Language-Modeling",
+					paperHref: "/assets/EmoCon.pdf",
 				},
 				{
 					id: "robustness-private-fl",
@@ -417,6 +441,7 @@ export const SITE_CONTENT = {
 					keyResult: "robust accuracy 9.16% → 29.59% at ε = 0.05",
 					tags: ["PyTorch", "DP-SGD", "Federated Learning"],
 					href: "https://github.com/nashira26/Adversarial-Robustness",
+					paperHref: "/assets/AdvRob.pdf",
 				},
 				{
 					id: "pcb-defect-segmentation",
@@ -427,6 +452,7 @@ export const SITE_CONTENT = {
 						"A computer vision system for finding and segmenting manufacturing defects on printed circuit boards.",
 					tags: ["Python", "Computer Vision"],
 					href: "https://github.com/nashira26/PCB-Defect-Segmentation-System",
+					paperHref: "/assets/Unet.pdf",
 				},
 				{
 					id: "grade-book",
