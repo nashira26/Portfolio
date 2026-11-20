@@ -17,6 +17,7 @@ export type PixelIconId =
 	| "lock"
 	| "circuit-board"
 	| "server-rack"
+	| "heart-pulse"
 	| "gradebook"
 	| "code-crate"
 	| "hiking-boot"
@@ -455,6 +456,35 @@ export const SITE_CONTENT = {
 					paperHref: "/assets/Unet.pdf",
 				},
 				{
+					id: "hybrid-nb-mlp-heart-disease",
+					title: "Hybrid Naive Bayes–MLP for Heart Disease",
+					icon: "heart-pulse",
+					rightLabel: "machine learning",
+					description:
+						"Does adding Naive Bayes probabilities to a neural network improve heart disease prediction? A group course project comparing Naive Bayes, a neural network, and a hybrid of the two across three heart disease datasets. The hybrid matched the neural network on the largest dataset but didn't improve on it. The more useful lesson was about class imbalance: on one dataset, every model missed almost all positive cases while still reporting 85% accuracy.",
+					tags: ["Python", "scikit-learn", "TensorFlow", "Group project"],
+					href: "https://github.com/nashira26/Hybrid-Naive-Bayes-MLP-for-Cardiovascular-Disease-Prediction",
+					paperHref: "/assets/hybrid.pdf",
+					paperLabel: "Read the report (PDF) ↗",
+				},
+				{
+					id: "datacentre-reliability-survey",
+					title: "Reliability Modelling in Cloud Data Centers",
+					icon: "server-rack",
+					rightLabel: "literature survey",
+					description:
+						"How are fault trees and reliability block diagrams used to model cloud data center reliability, and where does the research fall short? A literature survey with a group of three at TMU (2025), reviewing nine studies that use fault tree analysis (FTA) and reliability block diagrams (RBD) to model the reliability of cloud data centers. We built a taxonomy grouping the studies by subsystem (compute, storage, network, power and cooling), modelling approach and the metrics they evaluate.",
+					keyResult:
+						"FTA is mostly used to diagnose multi-cause failures in compute systems; RBD is preferred for evaluating redundancy in power and storage. Most studies model one subsystem in isolation, few use real failure data, and almost none use machine learning, despite the volume of monitoring data data centers produce.",
+					tags: [
+						"Reliability engineering",
+						"Fault tree analysis",
+						"Research writing",
+					],
+					paperHref: "/assets/Datacentre.pdf",
+					paperLabel: "Read the report (PDF) ↗",
+				},
+				{
 					id: "grade-book",
 					title: "Grade-Book",
 					icon: "gradebook",
@@ -680,10 +710,13 @@ export const SITE_CONTENT = {
 					label: "AI & ML",
 					items: [
 						"PyTorch",
+						"TensorFlow",
+						"Hugging Face Transformers",
 						"scikit-learn",
 						"NumPy",
 						"pandas",
 						"NLP",
+						"computer vision",
 						"LLM evaluation",
 						"uncertainty quantification",
 					],

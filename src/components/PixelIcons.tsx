@@ -374,6 +374,36 @@ export const PixelIcon: React.FC<PixelIconProps> = ({ name, className = 'w-4 h-4
           </>
         );
 
+      case 'heart-pulse':
+        // Pixel heart with an ECG trace (Hybrid Naive Bayes–MLP heart disease)
+        return (
+          <>
+            {/* Outline silhouette */}
+            <rect x="3" y="3" width="3" height="1" fill={outline} />
+            <rect x="10" y="3" width="3" height="1" fill={outline} />
+            <rect x="2" y="4" width="12" height="5" fill={outline} />
+            <rect x="3" y="9" width="10" height="1" fill={outline} />
+            <rect x="4" y="10" width="8" height="1" fill={outline} />
+            <rect x="5" y="11" width="6" height="1" fill={outline} />
+            <rect x="6" y="12" width="4" height="1" fill={outline} />
+            <rect x="7" y="13" width="2" height="1" fill={outline} />
+            {/* Fill */}
+            <rect x="3" y="4" width="3" height="1" fill={accent} />
+            <rect x="10" y="4" width="3" height="1" fill={accent} />
+            <rect x="3" y="5" width="10" height="4" fill={accent} />
+            <rect x="4" y="9" width="8" height="1" fill={accent} />
+            <rect x="5" y="10" width="6" height="1" fill={accent} />
+            <rect x="6" y="11" width="4" height="1" fill={accent} />
+            <rect x="7" y="12" width="2" height="1" fill={accent} />
+            {/* ECG trace */}
+            <rect x="3" y="7" width="3" height="1" fill={bg} />
+            <rect x="6" y="6" width="1" height="1" fill={bg} />
+            <rect x="7" y="5" width="1" height="1" fill={bg} />
+            <rect x="8" y="8" width="1" height="1" fill={bg} />
+            <rect x="9" y="7" width="4" height="1" fill={bg} />
+          </>
+        );
+
       case 'server-rack':
         // Pixel multi-tenant server stack (Encyte SaaS)
         return (
