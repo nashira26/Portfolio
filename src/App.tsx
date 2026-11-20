@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
-import { AccentId, InternalActionLink, SITE_CONTENT } from "./content";
+import {
+	AccentId,
+	ExpandableShelf,
+	InternalActionLink,
+	SITE_CONTENT,
+} from "./content";
 import { Sidebar } from "./components/Sidebar";
 import { PixelIcon } from "./components/PixelIcons";
 import { ShelfCardList } from "./components/ShelfCardList";
@@ -11,6 +16,22 @@ const ACCENT_STORAGE_KEY = "nashira-accent";
 const VALID_ACCENTS: AccentId[] = ["teal", "coral", "kelp", "blue", "goldfish"];
 
 let hasLoggedConsoleGreeting = false;
+
+// "Currently working on" items, shaped as a shelf so they reuse the shared card styling.
+const { currentWork } = SITE_CONTENT.shelves;
+const CURRENT_WORK_SHELF: ExpandableShelf = {
+	id: currentWork.id,
+	title: currentWork.title,
+	icon: currentWork.icon,
+	columns: 1,
+	items: currentWork.items.map((item) => ({
+		id: item.title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+		title: item.title,
+		icon: currentWork.icon,
+		rightLabel: item.status,
+		description: item.description,
+	})),
+};
 
 function getInitialTheme(): boolean {
 	if (typeof window === "undefined") return false;
@@ -267,12 +288,6 @@ export default function App() {
 						hideItemIcons
 					/>
 
-					{/* 3. Achievements shelf */}
-					<AchievementList
-						shelf={shelves.achievements}
-						onInternalNavigate={handleInternalNavigate}
-					/>
-
 					{/* 5. Toolbox shelf (always visible) */}
 					<section
 						id={shelves.toolbox.id}
@@ -312,6 +327,20 @@ export default function App() {
 							))}
 						</div>
 					</section>
+
+					{/* Currently working on (descriptions always visible) */}
+					<ShelfCardList
+						shelf={CURRENT_WORK_SHELF}
+						updatedLabel={`Updated ${currentWork.lastUpdated}`}
+						hideItemIcons
+						alwaysOpen
+					/>
+
+					{/* 3. Achievements shelf */}
+					<AchievementList
+						shelf={shelves.achievements}
+						onInternalNavigate={handleInternalNavigate}
+					/>
 
 					{/* 6. Journey section (between Toolbox and Off the clock) */}
 					<section

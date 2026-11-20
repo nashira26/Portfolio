@@ -33,7 +33,8 @@ export type PixelIconId =
 	| "instagram"
 	| "sprout"
 	| "child-care"
-	| "trophy";
+	| "trophy"
+	| "hourglass";
 
 export interface AccentOption {
 	id: AccentId;
@@ -127,6 +128,24 @@ export interface ShelfCardItem {
 		alt: string;
 		caption?: string;
 	};
+}
+
+export type CurrentWorkStatus = "In progress" | "Up next" | "Planned";
+
+export interface CurrentWorkItem {
+	title: string;
+	/** One sentence. */
+	description: string;
+	status: CurrentWorkStatus;
+}
+
+export interface CurrentWorkSection {
+	id: string;
+	title: string;
+	icon: PixelIconId;
+	/** Shown under the heading as "Updated <lastUpdated>". */
+	lastUpdated: string;
+	items: CurrentWorkItem[];
 }
 
 export interface ExpandableShelf {
@@ -267,6 +286,7 @@ export const SITE_CONTENT = {
 		{ id: "education", label: "Education", icon: "shelf-background" },
 		{ id: "experience", label: "Experience", icon: "shelf-experience" },
 		{ id: "projects", label: "Projects", icon: "shelf-swe" },
+		{ id: "now", label: "Now", icon: "hourglass" },
 		{ id: "achievements", label: "Achievements", icon: "trophy" },
 		{ id: "toolbox", label: "Toolbox", icon: "shelf-toolbox" },
 		{ id: "journey", label: "Journey", icon: "sprout" },
@@ -500,6 +520,39 @@ export const SITE_CONTENT = {
 				href: "https://github.com/nashira26",
 			},
 		} satisfies ExpandableShelf,
+
+		currentWork: {
+			id: "now",
+			title: "Currently working on",
+			icon: "hourglass",
+			lastUpdated: "November 2026",
+			items: [
+				{
+					title: "CareQ evaluation",
+					description:
+						"Building a 40–60 question test set to measure retrieval accuracy, citation correctness and whether the assistant refuses when it should.",
+					status: "In progress",
+				},
+				{
+					title: "CareQ with LangGraph",
+					description:
+						"Rebuilding CareQ's assistant as a LangGraph workflow and comparing it with my hand-built agent on the same test set.",
+					status: "Up next",
+				},
+				{
+					title: "Predictive maintenance",
+					description:
+						"Training XGBoost and LightGBM to predict machine failures, tracked in MLflow and served as an API with FastAPI and Docker on Cloud Run.",
+					status: "Up next",
+				},
+				{
+					title: "Fine-tuned LLM judge",
+					description:
+						"Fine-tuning a small open model with QLoRA as a toxicity judge, and comparing its accuracy and calibration with the base model.",
+					status: "Planned",
+				},
+			],
+		} satisfies CurrentWorkSection,
 
 		experience: {
 			id: "experience",

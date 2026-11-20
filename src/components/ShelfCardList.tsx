@@ -27,6 +27,10 @@ interface ShelfCardListProps {
 	onOpenItemChange?: (id: string | null) => void;
 	onInternalNavigate?: (action: InternalActionLink) => void;
 	hideItemIcons?: boolean;
+	/** Show every item's panel with no toggle or chevron. */
+	alwaysOpen?: boolean;
+	/** Small muted line under the heading, e.g. "Updated November 2026". */
+	updatedLabel?: string;
 	children?: React.ReactNode;
 }
 
@@ -36,6 +40,8 @@ export const ShelfCardList: React.FC<ShelfCardListProps> = ({
 	onOpenItemChange,
 	onInternalNavigate,
 	hideItemIcons = false,
+	alwaysOpen = false,
+	updatedLabel,
 	children,
 }) => {
 	const [uncontrolledOpenId, setUncontrolledOpenId] = useState<string | null>(
@@ -72,7 +78,7 @@ export const ShelfCardList: React.FC<ShelfCardListProps> = ({
 			{/* Heading row */}
 			<div
 				className={`flex items-center gap-3 ${
-					shelf.description ? "" : "mb-5"
+					shelf.description || updatedLabel ? "" : "mb-5"
 				}`}>
 				<PixelIcon name={shelf.icon} className="w-[28px] h-[28px] shrink-0" />
 				<h2 className="font-display text-[1.45rem] font-semibold tracking-tight text-[var(--text)]">
@@ -82,8 +88,17 @@ export const ShelfCardList: React.FC<ShelfCardListProps> = ({
 
 			{/* One-line shelf description */}
 			{shelf.description && (
-				<p className="mt-1.5 mb-5 text-[var(--text-muted)]">
+				<p
+					className={`mt-1.5 text-[var(--text-muted)] ${
+						updatedLabel ? "" : "mb-5"
+					}`}>
 					{shelf.description}
+				</p>
+			)}
+
+			{updatedLabel && (
+				<p className="mt-1.5 mb-5 font-mono text-[12.5px] text-[var(--text-muted)]">
+					{updatedLabel}
 				</p>
 			)}
 
@@ -95,7 +110,9 @@ export const ShelfCardList: React.FC<ShelfCardListProps> = ({
 						: "grid grid-cols-1 gap-y-1.5 items-start"
 				}>
 				{items.map((item) => {
-					const isOpen = openItemId === item.id;
+					const isOpen = alwaysOpen || openItemId === item.id;
+					// Always-open items have nothing to toggle, so the header is plain, not a button.
+					const HeaderTag = alwaysOpen ? "div" : "button";
 					const buttonId = `${shelf.id}-btn-${item.id}`;
 					const panelId = `${shelf.id}-panel-${item.id}`;
 
@@ -121,13 +138,19 @@ export const ShelfCardList: React.FC<ShelfCardListProps> = ({
 									  }bg-[var(--bg-alt)] border border-[var(--border)]`
 									: "border border-transparent"
 							}`}>
-							<button
-								type="button"
+							<HeaderTag
 								id={buttonId}
-								aria-expanded={isOpen}
-								aria-controls={panelId}
-								onClick={() => handleToggle(item.id)}
-								className={`group w-full flex items-center gap-2.5 sm:gap-3 text-left rounded-[8px] cursor-pointer transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] scroll-mt-24 ${
+								{...(alwaysOpen
+									? {}
+									: {
+											type: "button" as const,
+											"aria-expanded": isOpen,
+											"aria-controls": panelId,
+											onClick: () => handleToggle(item.id),
+									  })}
+								className={`group w-full flex items-center gap-2.5 sm:gap-3 text-left rounded-[8px] ${
+									alwaysOpen ? "" : "cursor-pointer "
+								}transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)] scroll-mt-24 ${
 									isOpen
 										? "px-3.5 pt-3 pb-2"
 										: "px-2.5 py-2 hover:bg-[var(--bg-alt)]"
@@ -178,31 +201,37 @@ export const ShelfCardList: React.FC<ShelfCardListProps> = ({
 									</span>
 								)}
 
-								<svg
-									viewBox="0 0 16 16"
-									fill="none"
-									aria-hidden="true"
-									className={`w-4 h-4 shrink-0 transition-transform duration-200 motion-reduce:transition-none ${
-										isOpen
-											? "rotate-180 text-[var(--accent)]"
-											: "text-[var(--text-muted)] group-hover:text-[var(--accent)]"
-									}`}>
-									<path
-										d="M4 6L8 10L12 6"
-										stroke="currentColor"
-										strokeWidth="1.6"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-									/>
-								</svg>
-							</button>
+								{!alwaysOpen && (
+									<svg
+										viewBox="0 0 16 16"
+										fill="none"
+										aria-hidden="true"
+										className={`w-4 h-4 shrink-0 transition-transform duration-200 motion-reduce:transition-none ${
+											isOpen
+												? "rotate-180 text-[var(--accent)]"
+												: "text-[var(--text-muted)] group-hover:text-[var(--accent)]"
+										}`}>
+										<path
+											d="M4 6L8 10L12 6"
+											stroke="currentColor"
+											strokeWidth="1.6"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+										/>
+									</svg>
+								)}
+							</HeaderTag>
 
 							{/* Smooth ~200ms height reveal panel (instant if prefers-reduced-motion) */}
 							<div
 								id={panelId}
-								role="region"
-								aria-labelledby={buttonId}
-								aria-hidden={!isOpen}
+								{...(alwaysOpen
+									? {}
+									: {
+											role: "region",
+											"aria-labelledby": buttonId,
+											"aria-hidden": !isOpen,
+									  })}
 								className={`grid transition-[grid-template-rows,opacity] duration-200 ease-out motion-reduce:transition-none ${
 									isOpen
 										? "grid-rows-[1fr] opacity-100"

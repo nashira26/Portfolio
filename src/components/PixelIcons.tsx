@@ -374,6 +374,32 @@ export const PixelIcon: React.FC<PixelIconProps> = ({ name, className = 'w-4 h-4
           </>
         );
 
+      case 'hourglass':
+        // Pixel hourglass with sand running through (Currently working on)
+        return (
+          <>
+            {/* Outline silhouette (frame bars + glass) */}
+            <rect x="2" y="2" width="12" height="1" fill={outline} />
+            <rect x="3" y="3" width="10" height="2" fill={outline} />
+            <rect x="4" y="5" width="8" height="1" fill={outline} />
+            <rect x="5" y="6" width="6" height="1" fill={outline} />
+            <rect x="6" y="7" width="4" height="2" fill={outline} />
+            <rect x="5" y="9" width="6" height="1" fill={outline} />
+            <rect x="4" y="10" width="8" height="1" fill={outline} />
+            <rect x="3" y="11" width="10" height="2" fill={outline} />
+            <rect x="2" y="13" width="12" height="1" fill={outline} />
+            {/* Empty glass */}
+            <rect x="4" y="3" width="8" height="2" fill={surface} />
+            <rect x="6" y="9" width="4" height="1" fill={surface} />
+            <rect x="5" y="10" width="6" height="1" fill={surface} />
+            {/* Sand: top remainder, falling stream, bottom pile */}
+            <rect x="5" y="5" width="6" height="1" fill={accent} />
+            <rect x="6" y="6" width="4" height="1" fill={accent} />
+            <rect x="7" y="7" width="2" height="4" fill={accent} />
+            <rect x="4" y="11" width="8" height="2" fill={accent} />
+          </>
+        );
+
       case 'heart-pulse':
         // Pixel heart with an ECG trace (Hybrid Naive Bayes–MLP heart disease)
         return (
