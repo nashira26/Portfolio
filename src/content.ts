@@ -430,27 +430,57 @@ export const SITE_CONTENT = {
 					icon: "robot-hand",
 					rightLabel: "AI agent",
 					description:
-						"Most form-filling bots break when a page changes. This one looks at the page first. Gemini drives a real Playwright browser through tool-based actions in an observe-and-act loop, so it works from what's actually on screen rather than hardcoded selectors. It runs as an HTTP API with input validation, retry handling, scheduled runs and job-overlap protection, so it can run unattended.",
+						"Most form-filling bots break when a page changes. This one looks at the page first. Gemini drives a real Playwright browser through tool calls in an observe-and-act loop, working from a short list of what's on screen rather than hardcoded selectors. It doesn't take its own word for it: every filled value is read back, and a run only counts when the page shows a confirmation. It runs from the command line, an HTTP API with input validation, or a scheduler that prevents overlapping runs.",
+
 					media: {
 						src: "/assets/webform.gif",
 						alt: "Screen recording of the agent filling in a medical information form in a browser, section by section",
 						caption: "The agent filling in a form on its own",
 					},
-					tags: ["TypeScript", "Gemini", "Vercel AI SDK", "Playwright"],
+					tags: ["TypeScript", "Node.js", "Gemini API", "Playwright"],
 					href: "https://github.com/nashira26/Web-form-agent",
 				},
 				{
 					id: "emotion-conditioned-dialogue",
-					title: "Emotion-Conditioned Dialogue",
+					title: "Emotion-Conditioned Dialogue Generation",
 					icon: "speech-bubble",
-					rightLabel: "NLP",
+					rightLabel: "NLP · fine-tuning",
 					description:
-						"Can a chatbot reply with the right emotion, not just the right words? I fine-tuned BART on the DailyDialog dataset for emotion-conditioned response generation, and analysed how adding emotional context changes what the model says.",
+						"Teaching a dialogue model to reply with a chosen emotion, and measuring whether it actually does. I fine-tuned BART on DailyDialog and compared two ways of giving it the emotion: an emotion token at the start of the decoder's output, and a learned emotion vector added to the encoder's input. Both were tested against a baseline with no emotion information on the same 6,740 test examples. Both methods were equally good at following the emotion, but the token method kept better wording. It started as a course project; when I rebuilt it, I found one missing token at generation time had been hiding the token method's whole gain. It also showed why accuracy misleads on imbalanced data: always predicting \"neutral\" scored 81% accuracy but the lowest macro-F1.",
+					media: {
+						src: "/assets/EmoCon.png",
+						alt: "Diagram of the three models: DailyDialog conversations become context, reply and emotion examples; a baseline gets no emotion, EmoToken adds an emotion token at the start of the decoder, and EmoFusion adds an emotion vector to the encoder input; all are evaluated on the same test set for text quality and emotion alignment.",
+						caption: "How the three models differ (click to enlarge)",
+					},
+					note: "Emotion macro-F1 scores each emotion separately and averages them, so rare emotions count as much as neutral. A classifier labels each reply's emotion; real human replies score 28.4, which is the practical ceiling.",
 					keyResult:
-						"3-class accuracy 50.95% → 54.70%, macro-F1 37.12% → 40.25%",
-					tags: ["PyTorch", "BART", "Hugging Face"],
-					href: "https://github.com/nashira26/Emotion-Conditioned-Conversational-Language-Modeling",
-					paperHref: "/assets/EmoCon.pdf",
+						"Emotion macro-F1 18.6% → ~28%, the same score the classifier gives human replies (bootstrap-significant)",
+					chart: {
+						title: "Emotion macro-F1 on the test set",
+						ariaLabel:
+							"Horizontal bar chart of emotion macro-F1: baseline 18.6%, EmoToken 28.0%, EmoFusion 28.4%, compared with human replies at 28.4%",
+						baselineValue: 0.284,
+						baselineLabel: "human replies",
+						bars: [
+							{
+								label: "Baseline",
+								value: 0.186,
+								displayValue: "18.6%",
+								muted: true,
+							},
+							{ label: "EmoToken", value: 0.28, displayValue: "28.0%" },
+							{ label: "EmoFusion", value: 0.284, displayValue: "28.4%" },
+						],
+					},
+					tags: [
+						"Python",
+						"PyTorch",
+						"Hugging Face Transformers",
+						"BART",
+						"Fine-tuning",
+						"NLP",
+					],
+					href: "https://github.com/nashira26/Emotion-Conditioned-Dialogue",
 				},
 				{
 					id: "robustness-private-fl",
@@ -793,7 +823,7 @@ export const SITE_CONTENT = {
 						"LLM agents & function calling",
 						"prompt engineering",
 						"Gemini API",
-						"Vercel AI SDK",
+
 						"guardrails",
 					],
 				},
