@@ -481,18 +481,49 @@ export const SITE_CONTENT = {
 						"NLP",
 					],
 					href: "https://github.com/nashira26/Emotion-Conditioned-Dialogue",
+					paperHref: "/assets/EmoCon.pdf",
+					paperLabel: "Read the report (PDF) ↗",
 				},
 				{
-					id: "robustness-private-fl",
-					title: "Robustness in Private Federated Learning",
-					icon: "lock",
-					rightLabel: "privacy ML",
+					id: "adversarial-robustness-fl",
+					title: "Adversarial Robustness in Federated Learning",
+					icon: "shield",
+					rightLabel: "privacy · security",
 					description:
-						"Privacy and robustness often pull in opposite directions. I built a differentially private federated learning pipeline for human activity recognition (1D CNN, DP-SGD with gradient clipping and Gaussian noise, across simulated clients) and attacked it with white-box PGD. Then I used federated adversarial training to win back robustness without giving up privacy.",
-					keyResult: "robust accuracy 9.16% → 29.59% at ε = 0.05",
-					tags: ["PyTorch", "DP-SGD", "Federated Learning"],
+						"Federated learning keeps phone sensor data on the device, but can the model still be fooled? I trained a 1D CNN for human activity recognition across 10 simulated clients with FedAvg, added DP-SGD clipping and noise with Opacus, and attacked it with white-box PGD. Adding DP-SGD made the model much easier to fool, and federated adversarial training won back part of that robustness. I also learned the hard way that a noise level is not a privacy budget: I had labelled my runs by ε, but computing it properly afterwards showed the noise was far too small for any real privacy guarantee.",
+					note: "PGD changes each input feature by at most ε to make the model wrong. Robust accuracy is the accuracy on those attacked inputs.",
+					keyResult:
+						"Robust accuracy at PGD ε = 0.05: 9.2% → 29.6% with adversarial training (single run)",
+					chart: {
+						title: "Robust accuracy under PGD (ε = 0.05)",
+						ariaLabel:
+							"Horizontal bar chart of robust accuracy under PGD attacks of size 0.05: federated learning 54.6%, DP-SGD 9.2%, DP-SGD with adversarial training 29.6%",
+						bars: [
+							{ label: "Federated", value: 0.546, displayValue: "54.6%" },
+							{
+								label: "DP-SGD",
+								value: 0.092,
+								displayValue: "9.2%",
+								muted: true,
+							},
+							{
+								label: "DP-SGD + adv. training",
+								value: 0.296,
+								displayValue: "29.6%",
+							},
+						],
+					},
+					tags: [
+						"Python",
+						"PyTorch",
+						"Opacus",
+						"Federated learning",
+						"DP-SGD",
+						"Adversarial robustness",
+					],
 					href: "https://github.com/nashira26/Adversarial-Robustness",
 					paperHref: "/assets/AdvRob.pdf",
+					paperLabel: "Read the report (PDF) ↗",
 				},
 				{
 					id: "pcb-defect-segmentation",
